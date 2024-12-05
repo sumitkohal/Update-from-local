@@ -1270,9 +1270,12 @@ if (!customElements.get('bulk-add')) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Base price element
   const basePriceElement = document.querySelector('.product-price'); // Adjust selector to match your theme
   const checkboxes = document.querySelectorAll('.custom-checkboxes input');
-  const basePrice = parseFloat(basePriceElement.textContent.replace('+', ''));
+  
+  // Remove "Rs." and parse the numeric part of the price
+  const basePrice = parseFloat(basePriceElement.textContent.replace('Rs. ', '').trim());
   
   checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
@@ -1282,8 +1285,9 @@ document.addEventListener('DOMContentLoaded', () => {
           additionalCost += parseFloat(box.value);
         }
       });
-      basePriceElement.textContent = `$rs{(basePrice + additionalCost).toFixed(2)}`;
+      // Update the displayed price
+      basePriceElement.textContent = `Rs. ${(basePrice + additionalCost).toFixed(2)}`;
     });
-    console.log("working");
+    console.log("yes working");
   });
 });
