@@ -1293,7 +1293,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update the displayed price with additional cost
       basePriceElement.textContent = `Rs. ${(basePrice + additionalCost).toFixed(2)}`;
     });
-    alert("yes it's working");
+    console.log("yes it's working");
   });
 });
 
