@@ -1272,7 +1272,7 @@ if (!customElements.get('bulk-add')) {
 document.addEventListener('DOMContentLoaded', () => {
   const basePriceElement = document.querySelector('.product-price'); // Adjust selector to match your theme
   const checkboxes = document.querySelectorAll('.custom-checkboxes input');
-  const basePrice = parseFloat(basePriceElement.textContent.replace('$', ''));
+  const basePrice = parseFloat(basePriceElement.textContent.replace('+', ''));
   
   checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
