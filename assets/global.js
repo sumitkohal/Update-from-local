@@ -1282,7 +1282,8 @@ document.addEventListener('DOMContentLoaded', () => {
           additionalCost += parseFloat(box.value);
         }
       });
-      basePriceElement.textContent = `$${(basePrice + additionalCost).toFixed(2)}`;
+      basePriceElement.textContent = `$rs{(basePrice + additionalCost).toFixed(2)}`;
     });
+    console.log("working");
   });
 });
