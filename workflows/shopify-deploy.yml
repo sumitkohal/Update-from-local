@@ -31,5 +31,5 @@ jobs:
       # Deploy to Shopify Store
       - name: Deploy theme to Shopify
         run: |
-          shopify theme push --theme <theme_id> --store ${{ secrets.SHOPIFY_STORE_NAME }}
+          shopify theme push --theme 135961051224 --store ${{ secrets.SHOPIFY_STORE_NAME }}
 
