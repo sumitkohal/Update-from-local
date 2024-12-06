@@ -1,1 +1,35 @@
-sff
+name: Shopify CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Trigger the pipeline when changes are pushed to the 'main' branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      # Set up Ruby and install dependencies (Shopify CLI)
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7  # or the required Ruby version for Shopify CLI
+      
+      - name: Install dependencies
+        run: |
+          gem install shopify-cli
+
+      # Shopify authentication using environment variables (SHOPIFY_API_KEY and SHOPIFY_PASSWORD)
+      - name: Shopify Login
+        run: |
+          shopify login --store ${{ secrets.SHOPIFY_STORE_NAME }} --password ${{ secrets.SHOPIFY_PASSWORD }}
+
+      # Deploy to Shopify Store
+      - name: Deploy theme to Shopify
+        run: |
+          shopify theme push --theme <theme_id> --store ${{ secrets.SHOPIFY_STORE_NAME }}
+
