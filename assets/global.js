@@ -1304,7 +1304,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Example: Add the updated price as a line item property
     const cartData = {
       items: [{
-        id: 1234567890, // Replace with the actual product ID
+        id: 17182584111192, // Replace with the actual product ID
         quantity: 1,     // Quantity of the product
         properties: {
           'Updated Price': updatedPrice.toFixed(2)  // Custom property with the updated price
