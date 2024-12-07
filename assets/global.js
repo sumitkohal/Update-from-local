@@ -1294,33 +1294,40 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update the displayed price
       basePriceElement.textContent = `Rs. ${(updatedPrice).toFixed(2)}`;
 
-      // Send updated price to the cart
-      updateCartPrice(updatedPrice);
+      // Add the updated price to the cart as a line item property
+      updateCartWithCustomPrice(updatedPrice);
     });
   });
 
-  function updateCartPrice(updatedPrice) {
-    // Example AJAX request to send updated price to the cart page or backend
-    const cartUpdateData = {
-      price: updatedPrice,
-      // Any other data like product ID or quantity, if necessary
+  // Function to update the cart with the new price in line item properties
+  function updateCartWithCustomPrice(updatedPrice) {
+    // Example: Add the updated price as a line item property
+    const cartData = {
+      items: [{
+        id: 1234567890, // Replace with the actual product ID
+        quantity: 1,     // Quantity of the product
+        properties: {
+          'Updated Price': updatedPrice.toFixed(2)  // Custom property with the updated price
+        }
+      }]
     };
 
-    fetch('/update-cart', {
+    // Make an Ajax call to update the cart
+    fetch('/cart/add.js', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(cartUpdateData),
+      body: JSON.stringify(cartData),
     })
     .then(response => response.json())
     .then(data => {
-      // Handle the response from the server, e.g., update the cart UI
+      // Handle the cart update response, if needed
       console.log('Cart updated', data);
+      // Optionally, you can also reload the cart page or update the cart UI here
     })
     .catch(error => {
       console.error('Error updating cart:', error);
     });
   }
 });
-
