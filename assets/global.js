@@ -1270,7 +1270,6 @@ if (!customElements.get('bulk-add')) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Select the price element using the correct selector
   const basePriceElement = document.querySelector('.price-item.price-item--regular'); 
   if (!basePriceElement) {
     console.error('Base price element not found!');
@@ -1279,7 +1278,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const checkboxes = document.querySelectorAll('.custom-checkboxes input');
   
-  // Remove "Rs." and parse the numeric part of the price
   const basePrice = parseFloat(basePriceElement.textContent.replace('Rs. ', '').trim());
 
   checkboxes.forEach(checkbox => {
@@ -1290,10 +1288,39 @@ document.addEventListener('DOMContentLoaded', () => {
           additionalCost += parseFloat(box.value);
         }
       });
-      // Update the displayed price with additional cost
-      basePriceElement.textContent = `Rs. ${(basePrice + additionalCost).toFixed(2)}`;
+      
+      const updatedPrice = basePrice + additionalCost;
+      
+      // Update the displayed price
+      basePriceElement.textContent = `Rs. ${(updatedPrice).toFixed(2)}`;
+
+      // Send updated price to the cart
+      updateCartPrice(updatedPrice);
     });
-    console.log("yes it's working chottu don");
   });
+
+  function updateCartPrice(updatedPrice) {
+    // Example AJAX request to send updated price to the cart page or backend
+    const cartUpdateData = {
+      price: updatedPrice,
+      // Any other data like product ID or quantity, if necessary
+    };
+
+    fetch('/update-cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(cartUpdateData),
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response from the server, e.g., update the cart UI
+      console.log('Cart updated', data);
+    })
+    .catch(error => {
+      console.error('Error updating cart:', error);
+    });
+  }
 });
 
